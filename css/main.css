@@ -9,13 +9,38 @@ h1 {
 
 .books-list {
     background-color: #fff;
+    border-collapse: collapse;
+    text-align: center;
+    width: 80%;
+    margin: 50px auto;
 }
 
-.books-list li {
+.books-list th,
+.books-list td {
     padding: 5px;
+}
+
+.books-list tr:nth-child(even) {
+    background-color: aliceblue;
+}
+
+.book-item button {
+    border-radius: 10px;
+}
+
+.book-item button:hover {
+    background-color: lightgray;
     cursor: pointer;
 }
 
-button {
-    cursor: pointer;
+.update-btn {
+    background-color: rgb(243, 243, 15);
+}
+
+.delete-btn {
+    background-color: rgb(243, 15, 15);
+}
+
+.read-btn {
+    background-color: lightblue
 }
