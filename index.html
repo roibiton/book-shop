@@ -14,12 +14,31 @@
     </header>
 
     <table class="books-list">
-        
+
     </table>
+
+    <section>
+        <form class="book-add" onsubmit="onAddBook(event)">
+            <input placeholder="Title" type="text" name="book-title-add" />
+            <input placeholder="Price" type="number" class="book-price-add" name="book-price-add" />
+            <button>Add</button>
+        </form>
+    </section>
+
+    <div class="modal">
+        <div class="book-details-content">
+        </div>
+    </div>
+
+    <div class="modal update-modal">
+
+    </div>
+
 
     <script src="js/services/storage-service.js"></script>
     <script src="js/services/book-service.js"></script>
     <script src="js/book-controller.js"></script>
 </body>
+
 
 </html>

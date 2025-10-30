@@ -14,6 +14,10 @@ function getBooksForDisplay() {
 
 }
 
+function getBookById(bookId) {
+    return gBooks.find(book => book.id === bookId)
+}
+
 function _createBooks() {
     gBooks = loadFromStorage(STORAGE_KEY)
 
@@ -33,6 +37,7 @@ function _createBook(title, price) {
         title,
         price,
         imgUrl: `img/0${getRandomInt(1, 6)}.jpg`,
+        desc: makeLorem(50)
     }
 }
 
@@ -47,7 +52,17 @@ function updatePrice(bookId, newPrice) {
     book.price = newPrice
     _saveBooks()
 }
+function updateTitle(bookId, newTitle) {
+    const book = gBooks.find(book => book.id === bookId)
+    book.title = newTitle
+    _saveBooks()
+}
 
+function addBook(title, price) {
+    const newBook = _createBook(title, price)
+    gBooks.push(newBook)
+    _saveBooks()
+}
 
 
 
@@ -63,4 +78,14 @@ function getRandomInt(min, max) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+}
+
+function makeLorem(size = 100) {
+    var words = ['The sky', 'above', 'the port', 'was the color of television', 'tuned', 'to', 'a dead channel', '.', 'All', 'this happened', 'more or less', '.', 'I', 'had', 'the story', 'bit by bit', 'from various people', 'and', 'as generally', 'happens', 'in such cases', 'each time', 'it was', 'a different story', '.', 'It', 'was', 'a pleasure', 'to', 'burn']
+    var txt = ''
+    while (size > 0) {
+        size--
+        txt += words[Math.floor(Math.random() * words.length)] + ' '
+    }
+    return txt
 }
