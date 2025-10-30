@@ -1,0 +1,21 @@
+body {
+    background-color: antiquewhite;
+}
+
+h1 {
+    text-align: center;
+    color: rgb(121, 27, 27);
+}
+
+.books-list {
+    background-color: #fff;
+}
+
+.books-list li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+button {
+    cursor: pointer;
+}
