@@ -36,8 +36,17 @@ function _createBook(title, price) {
     }
 }
 
+function deleteBook(bookId) {
+    const bookIdx = gBooks.findIndex(book => book.id === bookId)
+    gBooks.splice(bookIdx, 1)
+    _saveBooks()
+}
 
-
+function updatePrice(bookId, newPrice) {
+    const book = gBooks.find(book => book.id === bookId)
+    book.price = newPrice
+    _saveBooks()
+}
 
 
 

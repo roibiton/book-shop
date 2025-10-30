@@ -31,3 +31,15 @@ function renderBooks() {
     }).join('')
     document.querySelector('.books-list').innerHTML = strHTMLs
 }
+
+function onDeleteBook(bookId) {
+    deleteBook(bookId)
+    renderBooks()
+}
+
+function onUpdateBook(bookId) {
+    const newPrice = +prompt('Enter new price:')
+    if (!newPrice || newPrice < 0) return
+    updatePrice(bookId, newPrice)
+    renderBooks()
+}
