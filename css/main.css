@@ -24,6 +24,10 @@ h1 {
     background-color: aliceblue;
 }
 
+thead {
+    background-color: lightcoral
+}
+
 .book-item button {
     border-radius: 10px;
 }

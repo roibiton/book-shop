@@ -4,8 +4,10 @@ var gBooks
 var gFilterBy = 'all'
 const STORAGE_KEY = 'bookDB'
 
+
 _createBooks()
 console.log('gBooks:', gBooks)
+
 
 function getBooksForDisplay() {
     if (gFilterBy === 'all') return gBooks
@@ -40,13 +42,12 @@ function _createBook(title, price) {
 
 
 
-
 function makeId() {
-    return `t+${getRandomInt(100, 999)}`
+    return `t${getRandomInt(100, 999)}`
 }
 
 function _saveBooks() {
-    saveToStorage(STORAGE_KEY, gTodos)
+    saveToStorage(STORAGE_KEY, gBooks)
 }
 
 function getRandomInt(min, max) {
