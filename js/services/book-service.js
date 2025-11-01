@@ -1,7 +1,7 @@
 'use strict'
 
 var gBooks
-var gFilterBy = 'all'
+var gFilterBy = ''
 const STORAGE_KEY = 'bookDB'
 
 
@@ -10,8 +10,16 @@ console.log('gBooks:', gBooks)
 
 
 function getBooksForDisplay() {
-    if (gFilterBy === 'all') return gBooks
+    if (!gFilterBy) return gBooks
 
+    const filteredBooks = gBooks.filter(book => {
+        return book.title.toLowerCase().includes(gFilterBy.toLowerCase())
+    })
+    return filteredBooks
+}
+
+function setBookFilter(filterBy) {
+    gFilterBy = filterBy
 }
 
 function getBookById(bookId) {

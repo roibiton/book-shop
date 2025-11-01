@@ -12,6 +12,16 @@
     <header>
         <h1>Book-shop</h1>
     </header>
+    
+    <section class="book-filter">
+        <input 
+            type="text" 
+            placeholder="Search by Title..." 
+            oninput="onSetFilterBy(this.value)" 
+            name="book-filter-input"
+        />
+        <button onclick="onClearFilter()">Clear Search</button>
+    </section>
 
     <table class="books-list">
 

@@ -98,3 +98,16 @@ function onCloseBookDesc() {
     elModal.querySelector('.book-details-content').innerHTML = ''
     elModal.classList.remove('open')
 }
+
+function onSetFilterBy(filterVal) {
+    setBookFilter(filterVal)
+    renderBooks()
+}
+
+
+function onClearFilter() {
+    document.querySelector('[name="book-filter-input"]').value = ''
+    
+    setBookFilter('') 
+    renderBooks()
+}
