@@ -26,15 +26,15 @@ function getBookById(bookId) {
     return gBooks.find(book => book.id === bookId)
 }
 
-function getBookStat(statMode){
-    if (statMode==='expensive'){
-        return gBooks.filter(book=>book.price>200).length
+function getBookStat(statMode) {
+    if (statMode === 'expensive') {
+        return gBooks.filter(book => book.price > 200).length
     }
-    if (statMode==='average'){
-        return gBooks.filter(book=>book.price<200&&book.price>80).length
+    if (statMode === 'average') {
+        return gBooks.filter(book => book.price < 200 && book.price > 80).length
     }
-    if (statMode==='cheap'){
-        return gBooks.filter(book=>book.price<80).length
+    if (statMode === 'cheap') {
+        return gBooks.filter(book => book.price < 80).length
     }
 
 }

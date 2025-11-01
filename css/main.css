@@ -78,6 +78,10 @@ thead {
     background-color: lightblue
 }
 
+.books-list text{
+    color: red;
+}
+
 .book-add {
     display: flex;
     flex-direction: column;
@@ -185,6 +189,6 @@ thead {
 
 .book-stat {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     color: rgb(121, 27, 27);
 }

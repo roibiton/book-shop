@@ -15,9 +15,10 @@ function renderBooks() {
                 <th>Actions</th>
             </tr>
     </thead>`
-    strHTMLs += books.map(book => {
-        return `
-    <tr class="book-item">
+    if (books.length !== 0) {
+        strHTMLs += books.map(book => {
+            return `
+            <tr class="book-item">
             <td>${book.id}</td>
             <td>${book.title}</td>
             <td>${book.price} $</td>
@@ -26,10 +27,17 @@ function renderBooks() {
                 <button class="update-btn" onclick="onOpenUpdateModal('${book.id}')">Update</button>
                 <button class="delete-btn" onclick="onDeleteBook('${book.id}')">Delete</button>
             </td>
-    </tr>
-        `
-    }).join('')
-    document.querySelector('.books-list').innerHTML = strHTMLs
+            </tr>
+                `
+        }).join('')
+        document.querySelector('.books-list').innerHTML = strHTMLs
+    }
+    else {
+        strHTMLs = `<h3>no matching books were found...</h3>`
+        document.querySelector('.books-list').innerHTML = strHTMLs
+        
+
+    }
     renderStat()
 }
 
