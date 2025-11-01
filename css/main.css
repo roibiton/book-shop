@@ -16,7 +16,7 @@ h1 {
     text-shadow: 2px 2px 4px #000000;
 }
 
-.book-filter{
+.book-filter {
     text-align: center;
     margin: 20px;
 }
@@ -166,7 +166,7 @@ thead {
     border: none;
 }
 
-.msg-modal{
+.msg-modal {
     font-size: xx-small;
 }
 
@@ -181,4 +181,10 @@ thead {
     background-color: lightgreen;
     padding: 5px;
     width: 50%;
+}
+
+.book-stat {
+    display: flex;
+    justify-content: space-between;
+    color: rgb(121, 27, 27);
 }

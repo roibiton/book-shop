@@ -14,12 +14,8 @@
     </header>
 
     <section class="book-filter">
-        <input 
-            type="text" 
-            placeholder="Search by Title..." 
-            oninput="onSetFilterBy(this.value)" 
-            name="book-filter-input"
-        />
+        <input type="text" placeholder="Search by Title..." oninput="onSetFilterBy(this.value)"
+            name="book-filter-input" />
         <button onclick="onClearFilter()">Clear Search</button>
     </section>
 
@@ -33,6 +29,12 @@
             <input placeholder="Price" type="number" class="book-price-add" name="book-price-add" />
             <button>Add</button>
         </form>
+    </section>
+
+    <section class="book-stat">
+        <h3>Expensive: <span class="total-expensive-count"></span></h3>
+        <h3>Average: <span class="total-average-count"></span></h3>
+        <h3>Cheap: <span class="total-cheap-count"></span></h3>
     </section>
 
     <div class="modal">

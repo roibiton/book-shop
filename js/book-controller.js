@@ -30,6 +30,13 @@ function renderBooks() {
         `
     }).join('')
     document.querySelector('.books-list').innerHTML = strHTMLs
+    renderStat()
+}
+
+function renderStat() {
+    document.querySelector('.total-expensive-count').innerText = getBookStat('expensive')
+    document.querySelector('.total-average-count').innerText = getBookStat('average')
+    document.querySelector('.total-cheap-count').innerText = getBookStat('cheap')
 }
 
 function onOpenUpdateModal(bookId) {
@@ -66,7 +73,7 @@ function onUpdateBook(ev, bookId) {
 function onAddBook(ev) {
     ev.preventDefault()
     const title = document.querySelector('[name="book-title-add"]').value
-    const price = document.querySelector('[name="book-price-add"]').value
+    const price = +document.querySelector('[name="book-price-add"]').value
     if (!price || price < 0 || !title.length || title.length === 0) {
         alert('Eror!\npls fill both fields with values,\nbefoure adding a new book.')
         return
@@ -126,3 +133,4 @@ function onClearFilter() {
     setBookFilter('')
     renderBooks()
 }
+
