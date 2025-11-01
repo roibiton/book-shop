@@ -26,12 +26,12 @@ h1 {
     border-radius: 5px;
     border: none;
     background-color: lightgray;
-    cursor: pointer;
 }
 
-.book-filter button:hover {
+button:hover {
     background-color: gray;
     color: white;
+    cursor: pointer;
 }
 
 input {
@@ -64,11 +64,6 @@ thead {
 
 .book-item button {
     border-radius: 10px;
-}
-
-.book-item button:hover {
-    background-color: lightgray;
-    cursor: pointer;
 }
 
 .update-btn {
@@ -169,6 +164,10 @@ thead {
     margin: 10px 0;
     border-radius: 5px;
     border: none;
+}
+
+.msg-modal{
+    font-size: xx-small;
 }
 
 .book-price-update {

@@ -60,6 +60,7 @@ function onUpdateBook(ev, bookId) {
     updateTitle(bookId, title)
 
     renderBooks()
+    onOpenMsgModal('updated', 'yellow')
 }
 
 function onAddBook(ev) {
@@ -72,11 +73,13 @@ function onAddBook(ev) {
     }
     addBook(title, price)
     renderBooks()
+    onOpenMsgModal('added', 'lightgreen')
 }
 
 function onDeleteBook(bookId) {
     deleteBook(bookId)
     renderBooks()
+    onOpenMsgModal('deleted', 'red')
 }
 
 function onOpenBookDesc(bookId) {
@@ -99,6 +102,18 @@ function onCloseBookDesc() {
     elModal.classList.remove('open')
 }
 
+function onOpenMsgModal(msg, txtColor) {
+    const elMsgModal = document.querySelector('.msg-modal span')
+    elMsgModal.innerText = msg
+    elMsgModal.style.color = txtColor
+    document.querySelector('.msg-modal').classList.add('open')
+    setTimeout(onCloseMsgModal, 2000)
+}
+
+function onCloseMsgModal() {
+    document.querySelector('.msg-modal').classList.remove('open')
+}
+
 function onSetFilterBy(filterVal) {
     setBookFilter(filterVal)
     renderBooks()
@@ -107,7 +122,7 @@ function onSetFilterBy(filterVal) {
 
 function onClearFilter() {
     document.querySelector('[name="book-filter-input"]').value = ''
-    
-    setBookFilter('') 
+
+    setBookFilter('')
     renderBooks()
 }
