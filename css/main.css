@@ -7,7 +7,7 @@ body {
     height: 100vh;
     margin: 0;
     background: linear-gradient(135deg, #544575 0%, #e281c7 100%);
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 h1 {
@@ -38,6 +38,32 @@ input {
     padding: 5px;
     border-radius: 5px;
     border: none;
+}
+
+.actions {
+    display: flex;
+    margin: 20px;
+    justify-content: space-evenly;
+}
+
+.actions button {
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: lightgray;
+}
+
+.actions .arrow {
+    padding: 0%;
+    font-size: xx-large;
+    background-color: transparent;
+    filter: hue-rotate(43deg);
+}
+
+.actions button:hover {
+    filter: hue-rotate(80deg);
+    color: white;
+    cursor: pointer;
 }
 
 .books-list {
@@ -78,7 +104,7 @@ thead {
     background-color: lightblue
 }
 
-.books-list text{
+.books-list text {
     color: red;
 }
 
@@ -108,11 +134,7 @@ thead {
     border-radius: 10px;
     background-color: lightgreen;
     padding: 5px;
-    width: 20%;
-    position: relative;
-    right: 50%;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 10%;
 }
 
 .book-add-btn:hover {
@@ -205,25 +227,27 @@ thead {
 .book-filter {
     background-color: #fff;
     border-radius: 10px;
-	padding: 20px;
-	margin: 20px 0;
+    padding: 20px;
+    margin: 20px 0;
     width: 80%;
     margin: auto;
 }
 
 .book-filter fieldset {
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .book-filter .filter-by,
 .book-filter .sort-by {
-	display: grid;
+    display: grid;
 }
+
 .book-filter label {
     margin: 5px 0;
 }
+
 .book-filter input,
 .book-filter select {
     padding: 5px;

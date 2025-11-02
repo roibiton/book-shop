@@ -61,7 +61,17 @@ function _createBooks() {
         gBooks = [
             _createBook('The Adventures of Lori Ipsi'),
             _createBook('World Atlas'),
-            _createBook('Zorba the Greek', 87),
+            _createBook('Zorba the Greek'),
+            _createBook('Harry Potter'),
+            _createBook('Marry Poppins'),
+            _createBook('The Lion King'),
+            _createBook('Five Balloons'),
+            _createBook('The Little Mermaid'),
+            _createBook('The Hobbit'),
+            _createBook('The Great Gatsby'),
+            _createBook('The Alchemist'),
+            _createBook('The Catcher in the Rye'),
+            _createBook('The Picture of Dorian Gray')
         ]
         _saveBooks()
     }
@@ -93,6 +103,14 @@ function _filterBooks(books, filterBy) {
     }
     return books
 }
+
+function getPageCount(options) {
+    const page = options.page
+    const filterBy = options.filterBy
+    var booksLength = _filterBooks(gBooks, filterBy).length
+    return Math.ceil(booksLength / page.size)
+}
+
 
 function updatePrice(bookId, newPrice) {
     const book = gBooks.find(book => book.id === bookId)

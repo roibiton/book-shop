@@ -3,7 +3,7 @@
 const gQueryOptions = {
     filterBy: { txt: '', minRate: 0 },
     sortBy: {},
-    page: { idx: 0, size: 3 }
+    page: { idx: 0, size: 5 }
 }
 var gDirection = true // true - asc , false - desc
 
@@ -199,17 +199,10 @@ function onSetFilterBy(filterBy) {
 function onSetSortBy() {
     const elSortField = document.querySelector('.sort-by select')
     const elSortDir = document.querySelector('.sort-desc')
-    // console.log('elSortDir:', elSortDir)
-    // console.dir(elSortDir)
-
     const sortField = elSortField.value
-    // console.log('sortField:', sortField)
     const sortDir = (elSortDir.checked) ? -1 : 1
     console.log('sortDir:', sortDir)
-
     gQueryOptions.sortBy = { [sortField]: sortDir }
-    // console.log('gQueryOptions.sortBy:', gQueryOptions.sortBy)
-
     gQueryOptions.page.idx = 0
     // setQueryParams()
     renderBooks()
@@ -220,30 +213,34 @@ function onSort(sortBy, direction) {
     const sortDir = (direction) ? 1 : -1
     gQueryOptions.sortBy = { [sortBy]: sortDir }
     gQueryOptions.page.idx = 0
+    // setQueryParams()
     renderBooks()
-
 }
 
 function onNextPage() {
-    // console.log('Getting next page...')
-
     const pageCount = getPageCount(gQueryOptions)
-    console.log('pageCount:', pageCount)
-
     if (gQueryOptions.page.idx === pageCount - 1) {
-
         gQueryOptions.page.idx = 0
     } else {
         gQueryOptions.page.idx++
-
     }
-
-    setQueryParams()
-    renderCars()
+    // setQueryParams()
+    renderBooks()
 }
+
+function onPrevPage() {
+    const pageCount = getPageCount(gQueryOptions)
+    if (gQueryOptions.page.idx === 0) {
+        gQueryOptions.page.idx = pageCount - 1
+    } else {
+        gQueryOptions.page.idx--
+    }
+    // setQueryParams()
+    renderBooks()
+}
+
 function onClearFilter() {
     document.querySelector('[name="book-filter-input"]').value = ''
-
     setBookFilter('')
     renderBooks()
 }
