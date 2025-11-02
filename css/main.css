@@ -7,7 +7,7 @@ body {
     height: 100vh;
     margin: 0;
     background: linear-gradient(135deg, #544575 0%, #e281c7 100%);
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 h1 {
@@ -45,7 +45,7 @@ input {
     border-collapse: collapse;
     text-align: center;
     width: 80%;
-    margin: 50px auto;
+    margin: 20px auto;
 }
 
 .books-list th,
@@ -103,15 +103,19 @@ thead {
     margin: auto;
 }
 
-.book-add button {
+.book-add-btn {
     margin: 0.5em auto;
     border-radius: 10px;
     background-color: lightgreen;
     padding: 5px;
-    width: 50%;
+    width: 20%;
+    position: relative;
+    right: 50%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.book-add button:hover {
+.book-add-btn:hover {
     background-color: gray;
     cursor: pointer;
 }
@@ -196,4 +200,33 @@ thead {
     display: flex;
     justify-content: space-around;
     color: rgb(121, 27, 27);
+}
+
+.book-filter {
+    background-color: #fff;
+    border-radius: 10px;
+	padding: 20px;
+	margin: 20px 0;
+    width: 80%;
+    margin: auto;
+}
+
+.book-filter fieldset {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.book-filter .filter-by,
+.book-filter .sort-by {
+	display: grid;
+}
+.book-filter label {
+    margin: 5px 0;
+}
+.book-filter input,
+.book-filter select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid gray;
 }

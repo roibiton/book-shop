@@ -9,16 +9,43 @@
     <script defer src="https://kit.fontawesome.com/0d3f998bf1.js" crossorigin="anonymous"></script>
 </head>
 
-<body onload="oninit()">
+<body onload="onInit()">
     <header>
         <h1>Book-shop</h1>
     </header>
 
     <section class="book-filter">
-        <input type="text" placeholder="Search by Title..." oninput="onSetFilterBy(this.value)"
-            name="book-filter-input" />
-        <button onclick="onClearFilter()">Clear Search</button>
+        <fieldset>
+            <legend>Filter & Sorting</legend>
+
+            <div class="filter-by">
+                <input oninput="onSetFilterBy({ txt: this.value })" placeholder="title" type="text">
+                <label>
+                    <span>Min Rate:</span>
+                    <select onchange="onSetFilterBy({ minRate: +this.value })">
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="sort-by">
+                <select onchange="onSetSortBy()">
+                    <option value="">Select Sorting</option>
+                    <option value="title">By Title</option>
+                    <option value="price">By Price</option>
+                </select>
+                <label>
+                    <span>Descending</span>
+                    <input class="sort-desc" type="checkbox" oninput="onSetSortBy()" />
+                </label>
+            </div>
+        </fieldset>
     </section>
+
 
     <div class="btns">
         <button class="btn-option btn-table" onclick="onSetLayout('table')">
@@ -29,11 +56,11 @@
         </button>
     </div>
 
+    <button class="book-add-btn" onclick="onOpenAddBookModal()">Add Book</button>
     <table class="books-list">
 
     </table>
-
-    <section>
+    <!-- <section>
         <form class="book-add" onsubmit="onAddBook(event)">
             <input placeholder="Title" type="text" name="book-title-add" />
             <div style="display: flex;">
@@ -42,7 +69,7 @@
             </div>
             <button>Add</button>
         </form>
-    </section>
+    </section> -->
 
     <section class="book-stat">
         <h3>Expensive: <span class="total-expensive-count"></span></h3>

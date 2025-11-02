@@ -1,7 +1,6 @@
 'use strict'
 
 var gBooks
-var gFilterBy = ''
 const STORAGE_KEY = 'bookDB'
 
 
@@ -9,17 +8,33 @@ _createBooks()
 console.log('gBooks:', gBooks)
 
 
-function getBooksForDisplay() {
-    if (!gFilterBy) return gBooks
+function getBooksForDisplay(options = {}) {
+    const filterBy = options.filterBy
+    const sortBy = options.sortBy
+    const page = options.page
 
-    const filteredBooks = gBooks.filter(book => {
-        return book.title.toLowerCase().includes(gFilterBy.toLowerCase())
-    })
+    var filteredBooks = _filterBooks(gBooks, filterBy)
+
+    if (sortBy.title) {
+        const sortDir = sortBy.title
+        filteredBooks = filteredBooks.toSorted((b1, b2) => b1.title.localeCompare(b2.title) * sortDir)
+    }
+
+    if (sortBy.price) {
+        const sortDir = sortBy.price
+        filteredBooks = filteredBooks.toSorted((b1, b2) => (b1.price - b2.price) * sortDir)
+    }
+    if (sortBy.rate) {
+        const sortDir = sortBy.rate
+        filteredBooks = filteredBooks.toSorted((b1, b2) => (b1.rate - b2.rate) * sortDir)
+    }
+
+    const startIdx = page.idx * page.size // 0 , 3 , 6
+    const endIdx = startIdx + page.size // 3 , 6 , 9
+
+    filteredBooks = filteredBooks.slice(startIdx, endIdx)
+
     return filteredBooks
-}
-
-function setBookFilter(filterBy) {
-    gFilterBy = filterBy
 }
 
 function getBookById(bookId) {
@@ -44,20 +59,20 @@ function _createBooks() {
 
     if (!gBooks || !gBooks.length) {
         gBooks = [
-            _createBook('The Adventures of Lori Ipsi', 120, 2),
-            _createBook('World Atlas', 300, 3),
-            _createBook('Zorba the Greek', 87, 5),
+            _createBook('The Adventures of Lori Ipsi'),
+            _createBook('World Atlas'),
+            _createBook('Zorba the Greek', 87),
         ]
         _saveBooks()
     }
 }
 
-function _createBook(title, price, rate = 5) {
+function _createBook(title, price, rate) {
     return {
         id: makeId(),
         title,
-        rate,
-        price,
+        price: price || getRandomInt(20, 300),
+        rate: rate || getRandomInt(1, 6),
         imgUrl: `img/0${getRandomInt(1, 6)}.jpg`,
         desc: makeLorem(50)
     }
@@ -67,6 +82,16 @@ function deleteBook(bookId) {
     const bookIdx = gBooks.findIndex(book => book.id === bookId)
     gBooks.splice(bookIdx, 1)
     _saveBooks()
+}
+
+function _filterBooks(books, filterBy) {
+    if (filterBy.txt) {
+        books = books.filter(book => book.title.toLowerCase().includes(filterBy.txt.toLowerCase()))
+    }
+    if (filterBy.minRate) {
+        books = books.filter(book => book.rate >= filterBy.minRate)
+    }
+    return books
 }
 
 function updatePrice(bookId, newPrice) {
@@ -80,6 +105,7 @@ function updateTitle(bookId, newTitle) {
     _saveBooks()
 }
 function updateRate(bookId, rate) {
+    if (rate <= 0 || rate > 5) return
     const book = gBooks.find(book => book.id === bookId)
     book.rate = rate
     _saveBooks()
