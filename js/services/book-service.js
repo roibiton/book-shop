@@ -44,18 +44,19 @@ function _createBooks() {
 
     if (!gBooks || !gBooks.length) {
         gBooks = [
-            _createBook('The Adventures of Lori Ipsi', 120),
-            _createBook('World Atlas', 300),
-            _createBook('Zorba the Greek', 87),
+            _createBook('The Adventures of Lori Ipsi', 120, 2),
+            _createBook('World Atlas', 300, 3),
+            _createBook('Zorba the Greek', 87, 5),
         ]
         _saveBooks()
     }
 }
 
-function _createBook(title, price) {
+function _createBook(title, price, rate = 5) {
     return {
         id: makeId(),
         title,
+        rate,
         price,
         imgUrl: `img/0${getRandomInt(1, 6)}.jpg`,
         desc: makeLorem(50)
@@ -78,14 +79,17 @@ function updateTitle(bookId, newTitle) {
     book.title = newTitle
     _saveBooks()
 }
-
-function addBook(title, price) {
-    const newBook = _createBook(title, price)
-    gBooks.push(newBook)
+function updateRate(bookId, rate) {
+    const book = gBooks.find(book => book.id === bookId)
+    book.rate = rate
     _saveBooks()
 }
 
-
+function addBook(title, price, rate) {
+    const newBook = _createBook(title, price, rate)
+    gBooks.push(newBook)
+    _saveBooks()
+}
 
 function makeId() {
     return `t${getRandomInt(100, 999)}`

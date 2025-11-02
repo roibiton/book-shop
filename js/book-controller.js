@@ -11,6 +11,7 @@ function renderBooks() {
             <tr>
                 <th>ID</th>
                 <th>Title</th>
+                <th>Rate</th>
                 <th>Price</th>
                 <th>Actions</th>
             </tr>
@@ -21,6 +22,7 @@ function renderBooks() {
             <tr class="book-item">
             <td>${book.id}</td>
             <td>${book.title}</td>
+            <td>${getRateDisplay(book.rate)}</td>
             <td>${book.price} $</td>
             <td>
                 <button class="read-btn" onclick="onOpenBookDesc('${book.id}')">Read</button>
@@ -35,7 +37,7 @@ function renderBooks() {
     else {
         strHTMLs = `<h3>no matching books were found...</h3>`
         document.querySelector('.books-list').innerHTML = strHTMLs
-        
+
 
     }
     renderStat()
@@ -53,7 +55,10 @@ function onOpenUpdateModal(bookId) {
     elUpdateModal.innerHTML = `<div class="update-content">
             <form class="book-update" onsubmit="onUpdateBook(event, '${bookId}')">
                 <input value="${book.title}" type="text" name="title-update-from-modal" />
-                <input value="${book.price}" type="number" class="book-price-update" name="price-update-from-modal" />
+                <div style="display:flex; gap:1em;">
+                    <input value="${book.price}" type="number" class="book-price-update" name="price-update-from-modal" />
+                    <input value="${book.rate}" type="number" class="book-rate-update" name="rate-update-from-modal" />
+                </div>
                 <button>Update</button>
             </form>
         </div>`
@@ -66,13 +71,15 @@ function onUpdateBook(ev, bookId) {
     document.querySelector('.update-modal').classList.remove('open')
     const title = document.querySelector('[name="title-update-from-modal"]').value
     const newPrice = document.querySelector('[name="price-update-from-modal"]').value
+    const newRate = document.querySelector('[name="rate-update-from-modal"]').value
 
-    if (!newPrice || newPrice < 0 || !title.length || title.length === 0) {
+    if (!newPrice || newPrice < 0 || !title.length || title.length === 0 || newRate < 0 || newRate > 5) {
         alert('Eror!\npls update both fields with valid values')
         return
     }
     updatePrice(bookId, newPrice)
     updateTitle(bookId, title)
+    updateRate(bookId, newRate)
 
     renderBooks()
     onOpenMsgModal('updated', 'yellow')
@@ -82,11 +89,12 @@ function onAddBook(ev) {
     ev.preventDefault()
     const title = document.querySelector('[name="book-title-add"]').value
     const price = +document.querySelector('[name="book-price-add"]').value
-    if (!price || price < 0 || !title.length || title.length === 0) {
-        alert('Eror!\npls fill both fields with values,\nbefoure adding a new book.')
+    const rate = +document.querySelector('[name="book-rate-add"]').value
+    if (!price || price < 0 || !title.length || title.length === 0 || rate < 0 || !rate || rate > 5) {
+        alert('Eror!\npls fill all fields with values,\nbefoure adding a new book.')
         return
     }
-    addBook(title, price)
+    addBook(title, price, rate)
     renderBooks()
     onOpenMsgModal('added', 'lightgreen')
 }
@@ -107,9 +115,16 @@ function onOpenBookDesc(bookId) {
         <p><strong>Title:</strong> ${book.title}</p>
         <p><strong>Price:</strong> ${book.price} $</p>
         <p><strong>Description:</strong> ${book.desc}</p>
-    `
+        
+        `
+    // <div style="display: flex; gap: 5px;">
+    //    <button onclick="updateRate(${bookId}, -1)">-</button>
+    //    <strong>${book.rate}</strong>
+    //    <button onclick="updateRate(${bookId}, 1)">+</button>
+    // </div>
     elModal.classList.add('open')
 }
+
 
 function onCloseBookDesc() {
     const elModal = document.querySelector('.modal')
@@ -140,5 +155,13 @@ function onClearFilter() {
 
     setBookFilter('')
     renderBooks()
+}
+
+function getRateDisplay(length) {
+    var str = ''
+    for (var i = 0; i < length; i++) {
+        str += '⭐'
+    }
+    return str
 }
 

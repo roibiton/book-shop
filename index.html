@@ -26,7 +26,10 @@
     <section>
         <form class="book-add" onsubmit="onAddBook(event)">
             <input placeholder="Title" type="text" name="book-title-add" />
-            <input placeholder="Price" type="number" class="book-price-add" name="book-price-add" />
+            <div style="display: flex;">
+                <input placeholder="Price" type="number" class="book-price-add" name="book-price-add" />
+                <input placeholder="rate" type="number" class="book-rate-add" name="book-rate-add" />
+            </div>
             <button>Add</button>
         </form>
     </section>

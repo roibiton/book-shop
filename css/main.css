@@ -98,6 +98,11 @@ thead {
     margin: auto;
 }
 
+.book-rate-add {
+    width: 30%;
+    margin: auto;
+}
+
 .book-add button {
     margin: 0.5em auto;
     border-radius: 10px;
