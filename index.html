@@ -15,14 +15,14 @@
     </header>
 
     <section class="book-filter">
-        <fieldset>
+        <fieldset style="color: white; text-shadow: 2px 2px 4px #000000;">
             <legend>Filter & Sorting</legend>
 
             <div class="filter-by">
-                <input oninput="onSetFilterBy({ txt: this.value })" placeholder="title" type="text">
+                <input class="book-filter-input" oninput="onSetFilterBy({ title: this.value })" placeholder="Search for title" type="text">
                 <label>
                     <span>Min Rate:</span>
-                    <select onchange="onSetFilterBy({ minRate: +this.value })">
+                    <select class="book-filter-min-rate" onchange="onSetFilterBy({ minRate: +this.value })">
                         <option value="1" selected>1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -31,6 +31,8 @@
                     </select>
                 </label>
             </div>
+            
+            <button class="btn-filter" onclick="onResetActions()">🔄️</button>
 
             <div class="sort-by">
                 <select onchange="onSetSortBy()">
@@ -47,14 +49,14 @@
     </section>
 
 
-    <div class="btns">
-        <button class="btn-option btn-table" onclick="onSetLayout('table')">
+    <!-- <div class="btns">
+        <button class="btn-option btn-table" onclick="onSetLayout('')">
             <i class="fa-solid fa-grip-lines"></i>
         </button>
         <button class="btn-option btn-cards" onclick="onSetLayout('cards')">
             <i class="fa-solid fa-grip"></i>
         </button>
-    </div>
+    </div> -->
 
     <div class="actions">
         <button class="arrow" title="Previous Page" onclick="onPrevPage()">⬅️</button>

@@ -59,7 +59,7 @@ function _createBooks() {
 
     if (!gBooks || !gBooks.length) {
         gBooks = [
-            _createBook('The Adventures of Lori Ipsi'),
+            _createBook('Basic Cooking'),
             _createBook('World Atlas'),
             _createBook('Zorba the Greek'),
             _createBook('Harry Potter'),
@@ -68,10 +68,15 @@ function _createBooks() {
             _createBook('Five Balloons'),
             _createBook('The Little Mermaid'),
             _createBook('The Hobbit'),
-            _createBook('The Great Gatsby'),
+            _createBook('Brother Bear'),
             _createBook('The Alchemist'),
             _createBook('The Catcher in the Rye'),
-            _createBook('The Picture of Dorian Gray')
+            _createBook('The Picture of Dorian Gray'),
+            _createBook('Alice in Wonderland'),
+            _createBook('Moby Dick'),
+            _createBook('War and Peace'),
+            _createBook('The Brothers Karamazov'),
+            _createBook('A Tale of Two Cities'),
         ]
         _saveBooks()
     }
@@ -95,8 +100,8 @@ function deleteBook(bookId) {
 }
 
 function _filterBooks(books, filterBy) {
-    if (filterBy.txt) {
-        books = books.filter(book => book.title.toLowerCase().includes(filterBy.txt.toLowerCase()))
+    if (filterBy.title) {
+        books = books.filter(book => book.title.toLowerCase().includes(filterBy.title.toLowerCase()))
     }
     if (filterBy.minRate) {
         books = books.filter(book => book.rate >= filterBy.minRate)

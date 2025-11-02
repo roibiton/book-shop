@@ -1,13 +1,14 @@
 'use strict'
 
 const gQueryOptions = {
-    filterBy: { txt: '', minRate: 0 },
+    filterBy: { title: '', minRate: 0 },
     sortBy: {},
     page: { idx: 0, size: 5 }
 }
 var gDirection = true // true - asc , false - desc
 
 function onInit() {
+    readQueryParams()
     renderBooks()
 }
 
@@ -61,12 +62,13 @@ function onOpenUpdateModal(bookId) {
     const elUpdateModal = document.querySelector('.update-modal')
     elUpdateModal.innerHTML = `<div class="update-content">
             <form class="book-update" onsubmit="onUpdateBook(event, '${bookId}')">
+                <button class="close-btn" onclick="onCloseBookUpdate(event)">X</button>
                 <input value="${book.title}" type="text" name="title-update-from-modal" />
                 <div style="display:flex; gap:1em;">
                     <input value="${book.price}" type="number" class="book-price-update" name="price-update-from-modal" />
                     <input value="${book.rate}" type="number" class="book-rate-update" name="rate-update-from-modal" />
                 </div>
-                <button>Update</button>
+                <button class="btn">Update</button>
             </form>
         </div>`
 
@@ -92,16 +94,22 @@ function onUpdateBook(ev, bookId) {
     onOpenMsgModal('updated', 'yellow')
 }
 
+function onCloseBookUpdate(ev) {
+    ev.preventDefault()
+    document.querySelector('.update-modal').classList.remove('open')
+}
+
 function onOpenAddBookModal() {
     const elUpdateModal = document.querySelector('.update-modal')
     elUpdateModal.innerHTML = `<div class="update-content">
             <form class="book-update" onsubmit="onAddBook(event)">
+                <button class="close-btn" onclick="onCloseBookAdd(event)">X</button>
                 <input placeholder="Title" type="text" name="book-title-add" />
                 <div style="display:flex; gap:1em;">
                     <input placeholder="Price" type="number" class="book-price-update" name="book-price-add" />
                     <input placeholder="Rate" type="number" class="book-rate-update" name="book-rate-add" />
                 </div>
-                <button>Add</button>
+                <button class="btn">Add</button>
             </form>
         </div>`
 
@@ -123,6 +131,10 @@ function onAddBook(ev) {
     document.querySelector('.update-modal').classList.remove('open')
 }
 
+function onCloseBookAdd(ev) {
+    ev.preventDefault()
+    document.querySelector('.update-modal').classList.remove('open')
+}
 
 function onDeleteBook(bookId) {
     deleteBook(bookId)
@@ -182,17 +194,15 @@ function onCloseMsgModal() {
 }
 
 function onSetFilterBy(filterBy) {
-    console.log('Filter set.', filterBy)
-
-    if (filterBy.txt !== undefined) {
-        gQueryOptions.filterBy.txt = filterBy.txt
+    if (filterBy.title !== undefined) {
+        gQueryOptions.filterBy.title = filterBy.title
     } else if (filterBy.minRate !== undefined) {
         gQueryOptions.filterBy.minRate = filterBy.minRate
     }
     console.log('gQueryOptions.filterBy:', gQueryOptions.filterBy)
 
     gQueryOptions.page.idx = 0
-    // setQueryParams()
+    setQueryParams()
     renderBooks()
 }
 
@@ -204,7 +214,7 @@ function onSetSortBy() {
     console.log('sortDir:', sortDir)
     gQueryOptions.sortBy = { [sortField]: sortDir }
     gQueryOptions.page.idx = 0
-    // setQueryParams()
+    setQueryParams()
     renderBooks()
 }
 
@@ -213,7 +223,7 @@ function onSort(sortBy, direction) {
     const sortDir = (direction) ? 1 : -1
     gQueryOptions.sortBy = { [sortBy]: sortDir }
     gQueryOptions.page.idx = 0
-    // setQueryParams()
+    setQueryParams()
     renderBooks()
 }
 
@@ -224,7 +234,7 @@ function onNextPage() {
     } else {
         gQueryOptions.page.idx++
     }
-    // setQueryParams()
+    setQueryParams()
     renderBooks()
 }
 
@@ -235,13 +245,85 @@ function onPrevPage() {
     } else {
         gQueryOptions.page.idx--
     }
-    // setQueryParams()
+    setQueryParams()
     renderBooks()
 }
 
-function onClearFilter() {
-    document.querySelector('[name="book-filter-input"]').value = ''
-    setBookFilter('')
+function readQueryParams() {
+    const queryParams = new URLSearchParams(window.location.search)
+
+    gQueryOptions.filterBy = {
+        title: queryParams.get('title') || '',
+        minRate: +queryParams.get('minRate') || 0,
+    }
+
+    if (queryParams.get('sortBy')) {
+        const field = queryParams.get('sortBy')
+        const dir = queryParams.get('sortDir')
+        gQueryOptions.sortBy = { [field]: dir }
+    }
+
+    gQueryOptions.page = {
+        idx: +queryParams.get('pageIdx') || 0,
+        size: +queryParams.get('pageSize') || 5
+    }
+    renderQueryParams()
+}
+
+function renderQueryParams() {
+    document.querySelector('.book-filter-input').value = gQueryOptions.filterBy.title
+    const elMinRate = document.querySelector('.book-filter-min-rate')
+    if (elMinRate) {
+        elMinRate.value = gQueryOptions.filterBy.minRate
+    }
+
+    const sortKeys = Object.keys(gQueryOptions.sortBy)
+    if (sortKeys.length) {
+        const sortBy = sortKeys[0]
+        const dir = gQueryOptions.sortBy[sortKeys[0]]
+
+        document.querySelector('.sort-by select').value = sortBy || ''
+        document.querySelector('.sort-by .sort-desc').checked = (dir === '-1') ? true : false
+    }
+}
+
+function setQueryParams() {
+    const queryParams = new URLSearchParams()
+
+    queryParams.set('title', gQueryOptions.filterBy.title)
+    queryParams.set('minRate', gQueryOptions.filterBy.minRate)
+
+    const sortKeys = Object.keys(gQueryOptions.sortBy)
+    if (sortKeys.length) {
+        queryParams.set('sortBy', sortKeys[0])
+        queryParams.set('sortDir', gQueryOptions.sortBy[sortKeys[0]])
+    }
+
+    queryParams.set('pageIdx', gQueryOptions.page.idx)
+    queryParams.set('pageSize', gQueryOptions.page.size)
+
+    const newUrl =
+        window.location.protocol + "//" +
+        window.location.host +
+        window.location.pathname + '?' + queryParams.toString()
+
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
+function onResetActions() {
+    gQueryOptions.filterBy = { title: '', minRate: 0 }
+    gQueryOptions.sortBy = {}
+    gQueryOptions.page = { idx: 0, size: 5 }
+
+    document.querySelector('.book-filter-input').value = ''
+    const elMinRate = document.querySelector('.book-filter-min-rate')
+    if (elMinRate) {
+        elMinRate.value = 0
+    }
+    document.querySelector('.sort-by select').value = ''
+    document.querySelector('.sort-by .sort-desc').checked = false
+
+    setQueryParams()
     renderBooks()
 }
 

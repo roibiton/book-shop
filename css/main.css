@@ -17,20 +17,41 @@ h1 {
 }
 
 .book-filter {
+    background: linear-gradient(135deg, #fbfafa00 0%, #0b09094d 100%);
     text-align: center;
     margin: 20px;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    width: 80%;
+    margin: auto;
+
 }
 
 .book-filter button {
+    position: absolute;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(50%, 50%);
     padding: 5px 10px;
     border-radius: 5px;
     border: none;
-    background-color: lightgray;
+    background-color: transparent;
+    font-size: xx-large;
+    filter: hue-rotate(43deg);
 }
 
 button:hover {
     background-color: gray;
     color: white;
+    cursor: pointer;
+}
+
+.book-filter button:hover {
+    background-color:transparent;
+    filter: hue-rotate(80deg);
     cursor: pointer;
 }
 
@@ -46,11 +67,12 @@ input {
     justify-content: space-evenly;
 }
 
-.actions button {
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: lightgray;
+.book-update .btn {
+    margin: 10px auto;
+    border-radius: 10px;
+    background-color: lightgreen;
+    padding: 5px;
+    width: 50%;
 }
 
 .actions .arrow {
@@ -79,8 +101,13 @@ input {
     padding: 5px;
 }
 
+.books-list th:hover {
+    cursor: pointer;
+}
+
 .books-list tr:nth-child(even) {
-    background-color: aliceblue;
+    background-color: rgb(217, 228, 238);
+    filter: hue-rotate(325deg);
 }
 
 thead {
@@ -108,37 +135,20 @@ thead {
     color: red;
 }
 
-.book-add {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-    width: 30%;
-    margin: auto;
+.actions button {
+    border: none;
     padding: 10px;
-    text-align: center;
-
+    border-radius: 5px;
 }
 
-.book-price-add {
-    width: 30%;
-    margin: auto;
-}
 
-.book-rate-add {
-    width: 30%;
-    margin: auto;
-}
-
-.book-add-btn {
-    margin: 0.5em auto;
-    border-radius: 10px;
+.actions .book-add-btn {
     background-color: lightgreen;
-    padding: 5px;
-    width: 10%;
+    border:#000000 solid 2px;
 }
-
-.book-add-btn:hover {
-    background-color: gray;
+.actions .book-add-btn:hover {
+    filter: hue-rotate(40deg);
+    color: white;
     cursor: pointer;
 }
 
@@ -210,27 +220,11 @@ thead {
     margin: auto;
 }
 
-.book-update button {
-    margin: 10px auto;
-    border-radius: 10px;
-    background-color: lightgreen;
-    padding: 5px;
-    width: 50%;
-}
-
 .book-stat {
     display: flex;
     justify-content: space-around;
-    color: rgb(121, 27, 27);
-}
-
-.book-filter {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px 0;
-    width: 80%;
-    margin: auto;
+   color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px #000000;
 }
 
 .book-filter fieldset {
